@@ -6,14 +6,20 @@ import { streamMessage } from './api/chat'
 
 export default function App() {
   const addMessage = useChatStore((state) => state.addMessage)
-  const appendAssistantMessage = useChatStore((state) => state.appendAssistantMessage)
+  const appendAssistantMessage = useChatStore(
+    (state) => state.appendAssistantMessage,
+  )
   const setLoading = useChatStore((state) => state.setLoading)
   const workspaceId = useChatStore((state) => state.workspaceId)
 
   async function handleSend(message: string) {
     if (!message.trim()) return
 
-    addMessage({ role: 'user', content: message })
+    addMessage({
+      role: 'user',
+      content: message,
+    })
+
     setLoading(true)
 
     try {
@@ -23,7 +29,9 @@ export default function App() {
           agent: 'hermes',
           message,
         },
-        (token) => appendAssistantMessage(token),
+        (token) => {
+          appendAssistantMessage(token)
+        },
       )
     } catch (error) {
       appendAssistantMessage(
