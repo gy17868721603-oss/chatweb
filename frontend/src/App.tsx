@@ -1,8 +1,15 @@
+import ChatWindow from './components/ChatWindow'
+import ChatInput from './components/ChatInput'
+import Sidebar from './components/Sidebar'
+
 export default function App() {
   return (
-    <div>
-      <h1>Hermes Chat UI</h1>
-      <p>Agent Chat Interface</p>
+    <div className="app">
+      <Sidebar />
+      <main>
+        <ChatWindow />
+        <ChatInput />
+      </main>
     </div>
   )
 }
