@@ -1,4 +1,4 @@
-const HERMES_API_URL = import.meta.env.VITE_HERMES_API_URL || 'http://192.168.1.219:8642/'
+const HERMES_API_URL = import.meta.env.VITE_HERMES_API_URL || 'http://192.168.1.219:8642'
 
 export interface ChatRequest {
   workspace_id: string
