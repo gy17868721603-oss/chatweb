@@ -1,14 +1,32 @@
 import { create } from 'zustand'
 
-interface ChatState {
-  messages: string[]
-  addMessage: (message: string) => void
+export interface ChatMessage {
+  role: 'user' | 'assistant'
+  content: string
 }
 
+interface ChatState {
+  messages: ChatMessage[]
+  workspaceId: string
+  addMessage: (message: ChatMessage) => void
+  clearMessages: () => void
+}
+
+/**
+ * Hermes Chat 全局状态。
+ * 保存当前会话消息以及 Workspace 上下文。
+ */
 export const useChatStore = create<ChatState>((set) => ({
   messages: [],
-  addMessage: (message) =>
+  workspaceId: 'default',
+
+  addMessage(message) {
     set((state) => ({
       messages: [...state.messages, message],
-    })),
+    }))
+  },
+
+  clearMessages() {
+    set({ messages: [] })
+  },
 }))
