@@ -1,6 +1,6 @@
 import ChatWindow from './components/ChatWindow'
 import ChatInput from './components/ChatInput'
-import Sidebar from './components/Sidebar'
+import ChatLayout from './components/layout/ChatLayout'
 import { useChatStore } from './stores/chatStore'
 import { streamMessage } from './api/chat'
 
@@ -43,12 +43,9 @@ export default function App() {
   }
 
   return (
-    <div className="app">
-      <Sidebar />
-      <main>
-        <ChatWindow />
-        <ChatInput onSend={handleSend} />
-      </main>
-    </div>
+    <ChatLayout>
+      <ChatWindow />
+      <ChatInput onSend={handleSend} />
+    </ChatLayout>
   )
 }
