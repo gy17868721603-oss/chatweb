@@ -11,7 +11,10 @@
   "dependencies": {
     "react": "latest",
     "react-dom": "latest",
-    "zustand": "latest"
+    "zustand": "latest",
+    "react-markdown": "latest",
+    "remark-gfm": "latest",
+    "rehype-highlight": "latest"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "latest",
