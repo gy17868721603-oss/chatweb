@@ -6,8 +6,7 @@ interface ChatInputProps {
 }
 
 /**
- * 聊天输入组件。
- * 负责收集用户输入，并根据 Hermes 状态控制发送。
+ * 星云智能体聊天输入组件。
  */
 export default function ChatInput({ onSend }: ChatInputProps) {
   const [value, setValue] = useState('')
@@ -22,14 +21,15 @@ export default function ChatInput({ onSend }: ChatInputProps) {
   }
 
   return (
-    <div>
-      <input
+    <div className="chat-input-box">
+      <textarea
         value={value}
         disabled={loading}
-        placeholder={loading ? 'Hermes 正在思考...' : '输入消息...'}
+        placeholder={loading ? '星云智能体正在思考...' : '输入消息...'}
         onChange={(event) => setValue(event.target.value)}
         onKeyDown={(event) => {
-          if (event.key === 'Enter') {
+          if (event.key === 'Enter' && !event.shiftKey) {
+            event.preventDefault()
             submit()
           }
         }}
