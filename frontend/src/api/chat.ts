@@ -6,12 +6,53 @@ export interface ChatRequest {
   message: string
 }
 
+/**
+ * 发送普通聊天请求。
+ * 后续根据 Hermes Runtime 返回协议扩展 response 解析。
+ */
 export async function sendMessage(payload: ChatRequest) {
-  return fetch(`${HERMES_API_URL}/api/chat`, {
+  const response = await fetch(`${HERMES_API_URL}/api/chat`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(payload),
   })
+
+  return response.json()
+}
+
+/**
+ * Hermes 流式输出接口。
+ * 使用 SSE 方式逐 token 接收 Agent 回复。
+ */
+export async function streamMessage(
+  payload: ChatRequest,
+  onToken: (token: string) => void,
+) {
+  const response = await fetch(`${HERMES_API_URL}/api/chat/stream`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(payload),
+  })
+
+  if (!response.body) {
+    return
+  }
+
+  const reader = response.body.getReader()
+  const decoder = new TextDecoder()
+
+  while (true) {
+    const { done, value } = await reader.read()
+
+    if (done) {
+      break
+    }
+
+    const chunk = decoder.decode(value)
+    onToken(chunk)
+  }
 }
