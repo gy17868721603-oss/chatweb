@@ -69,3 +69,7 @@ hermes-chat-ui/
 - 多 Agent 切换
 - 文件上传
 - Agent 状态展示
+
+## Codex 开发约定
+
+项目开发遵循 docs/CODEX_PROMPT.md 中的中文注释、文档和任务拆解规范。
