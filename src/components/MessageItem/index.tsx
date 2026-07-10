@@ -8,24 +8,26 @@ interface MessageItemProps {
 }
 
 /**
- * Hermes 聊天消息展示组件。
- *
- * 支持：
- * - User / Hermes 区分
- * - Markdown 渲染
- * - GFM 表格
- * - 代码高亮
+ * 星云智能体消息展示组件。
+ * 支持 Markdown、GFM 表格和代码高亮。
  */
 export default function MessageItem({ role, content }: MessageItemProps) {
   return (
-    <div className={`message ${role}`}>
-      <strong>{role === 'user' ? 'User' : 'Hermes'}</strong>
-      <Markdown
-        remarkPlugins={[remarkGfm]}
-        rehypePlugins={[rehypeHighlight]}
-      >
-        {content}
-      </Markdown>
+    <div className={`message message-${role}`}>
+      <div className="message-avatar">
+        {role === 'user' ? '👤' : '✨'}
+      </div>
+
+      <div className="message-content">
+        <strong>{role === 'user' ? '你' : '星云智能体'}</strong>
+
+        <Markdown
+          remarkPlugins={[remarkGfm]}
+          rehypePlugins={[rehypeHighlight]}
+        >
+          {content}
+        </Markdown>
+      </div>
     </div>
   )
 }
