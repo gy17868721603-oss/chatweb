@@ -1,19 +1,31 @@
+import Markdown from 'react-markdown'
+import remarkGfm from 'remark-gfm'
+import rehypeHighlight from 'rehype-highlight'
+
 interface MessageItemProps {
   role: 'user' | 'assistant'
   content: string
 }
 
 /**
- * 聊天消息展示组件
+ * Hermes 聊天消息展示组件。
  *
- * 负责区分用户消息和 Hermes 回复内容。
- * 保留 Markdown 扩展入口，后续接入 markdown renderer。
+ * 支持：
+ * - User / Hermes 区分
+ * - Markdown 渲染
+ * - GFM 表格
+ * - 代码高亮
  */
 export default function MessageItem({ role, content }: MessageItemProps) {
   return (
     <div className={`message ${role}`}>
       <strong>{role === 'user' ? 'User' : 'Hermes'}</strong>
-      <pre>{content}</pre>
+      <Markdown
+        remarkPlugins={[remarkGfm]}
+        rehypePlugins={[rehypeHighlight]}
+      >
+        {content}
+      </Markdown>
     </div>
   )
 }
