@@ -30,7 +30,7 @@ export async function streamMessage(
   payload: ChatRequest,
   onToken: (token: string) => void,
 ) {
-  const response = await fetch(`${HERMES_API_URL}/api/chat/stream`, {
+  const response = await fetch(`${HERMES_API_URL}/v1/chat/completions`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
